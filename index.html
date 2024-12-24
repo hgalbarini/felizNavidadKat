@@ -95,7 +95,7 @@
         <img src="images/foto2.jpg" alt="Nuestro primer encuentro 2">
     </div>
     <div class="button-container">
-        <button id="show-message">Haz clic aquí</button>
+        <button id="show-message">no hagas click en este botoncillo a rex</button>
     </div>
 </div>
 
@@ -103,6 +103,17 @@
     <p>Gracias por ayudarme a ser mejor (y más humano a rex), te amo mucho 🎄</p>
 </footer>
 
-<script src="javafiles/java1.js"></script>
+<script>
+    console.log("Inline script is loaded!");
+
+    const message = "Este es un mensaje personalizado para mi solcisio ❤️";
+
+    function showMessage() {
+        alert(message);
+    }
+
+    document.getElementById("show-message").addEventListener("click", showMessage);
+</script>
+
 </body>
 </html>

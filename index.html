@@ -15,52 +15,52 @@
             background-color: #c41d25;
             color: white;
             text-align: center;
-            padding: 20px;
+            padding: 5vw; /* Tamaño proporcional */
         }
         header h1 {
-            font-size: 2.5em;
+            font-size: 5vw; /* Escalable según ancho de pantalla */
         }
         .section {
-            margin: 20px auto;
-            max-width: 800px;
+            margin: 5vw auto;
+            max-width: 90%;
             background: white;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
+            padding: 5vw;
         }
         .section h2 {
             text-align: center;
             color: #c41d25;
+            font-size: 4vw;
         }
         .photos {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 15px;
+            gap: 3vw;
         }
         .photos img {
             border-radius: 10px;
-            max-width: 100%;
+            width: 20vw; /* Tamaño adaptable */
             height: auto;
-            width: 200px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
         }
         .section p {
-            font-size: 1.2em;
+            font-size: 4vw;
             color: #333;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 5vw;
         }
         .button-container {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 5vw;
         }
         button {
             background-color: #c41d25;
             color: white;
             border: none;
-            padding: 10px 20px;
-            font-size: 1em;
+            padding: 3vw 5vw;
+            font-size: 4vw;
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
@@ -72,11 +72,12 @@
             text-align: center;
             background-color: #c41d25;
             color: white;
-            padding: 10px 0;
-            margin-top: 30px;
+            padding: 3vw 0;
+            margin-top: 5vw;
         }
         footer p {
             margin: 0;
+            font-size: 3.5vw;
         }
     </style>
 </head>
@@ -106,7 +107,7 @@
 <script>
     console.log("Inline script is loaded!");
 
-    const message = "me vas a tener que convidar con los bombones (diabliyo rojo)";
+    const message = "me vas a tener que convidar con los bombones (😈)";
 
     function showMessage() {
         alert(message);
@@ -116,41 +117,30 @@
 </script>
 
 <script>
-    console.log("Juego cargado correctamente");
-
+    // Adaptación del juego para móviles
     function startGame() {
-        // Crear el canvas
         const canvas = document.createElement("canvas");
         document.body.appendChild(canvas);
-        canvas.width = 800;
-        canvas.height = 400;
+        canvas.width = window.innerWidth * 0.9;
+        canvas.height = window.innerHeight * 0.5;
         const ctx = canvas.getContext("2d");
 
-        // Cargar imágenes de las paletas
         const katrinImage = new Image();
         const hugoImage = new Image();
         katrinImage.src = "images/katrin.jpg";
         hugoImage.src = "images/hugo.jpg";
 
-        // Variables del juego
-        const paddleSize = 80; // Tamaño más cuadrado
-        const ballRadius = 10;
+        const paddleSize = Math.min(canvas.width, canvas.height) * 0.15;
+        const ballRadius = Math.min(canvas.width, canvas.height) * 0.03;
 
-        let katrinPaddle = { x: canvas.width / 2 - paddleSize / 2, y: canvas.height - 100 };
-        let hugoPaddle = { x: canvas.width / 2 - paddleSize / 2, y: 50 };
+        let katrinPaddle = { x: canvas.width / 2 - paddleSize / 2, y: canvas.height - 80 };
+        let hugoPaddle = { x: canvas.width / 2 - paddleSize / 2, y: 40 };
         let ball = { x: canvas.width / 2, y: canvas.height / 2, dx: 2, dy: 3 };
 
-        // Dibuja el juego
         function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // Dibujar paleta de Katrin
             ctx.drawImage(katrinImage, katrinPaddle.x, katrinPaddle.y, paddleSize, paddleSize);
-
-            // Dibujar paleta de Hugo
             ctx.drawImage(hugoImage, hugoPaddle.x, hugoPaddle.y, paddleSize, paddleSize);
-
-            // Dibujar pelota
             ctx.beginPath();
             ctx.arc(ball.x, ball.y, ballRadius, 0, Math.PI * 2);
             ctx.fillStyle = "#c41d25";
@@ -158,29 +148,14 @@
             ctx.closePath();
         }
 
-        // Movimiento de la pelota
         function update() {
             ball.x += ball.dx;
             ball.y += ball.dy;
-
-            // Rebote en las paredes
-            if (ball.x + ballRadius > canvas.width || ball.x - ballRadius < 0) {
-                ball.dx = -ball.dx;
-            }
-
-            // Rebote en las paletas
+            if (ball.x + ballRadius > canvas.width || ball.x - ballRadius < 0) ball.dx = -ball.dx;
             if (
-                (ball.y + ballRadius > katrinPaddle.y &&
-                    ball.x > katrinPaddle.x &&
-                    ball.x < katrinPaddle.x + paddleSize) ||
-                (ball.y - ballRadius < hugoPaddle.y + paddleSize &&
-                    ball.x > hugoPaddle.x &&
-                    ball.x < hugoPaddle.x + paddleSize)
-            ) {
-                ball.dy = -ball.dy;
-            }
-
-            // Reiniciar si la pelota se pierde
+                (ball.y + ballRadius > katrinPaddle.y && ball.x > katrinPaddle.x && ball.x < katrinPaddle.x + paddleSize) ||
+                (ball.y - ballRadius < hugoPaddle.y + paddleSize && ball.x > hugoPaddle.x && ball.x < hugoPaddle.x + paddleSize)
+            ) ball.dy = -ball.dy;
             if (ball.y + ballRadius > canvas.height || ball.y - ballRadius < 0) {
                 ball.x = canvas.width / 2;
                 ball.y = canvas.height / 2;
@@ -189,16 +164,14 @@
             }
         }
 
-        // Control de las paletas
-        document.addEventListener("mousemove", (event) => {
+        canvas.addEventListener("touchmove", (event) => {
+            const touch = event.touches[0];
             const rect = canvas.getBoundingClientRect();
-            const mouseX = event.clientX - rect.left;
-
-            katrinPaddle.x = mouseX - paddleSize / 2;
-            hugoPaddle.x = mouseX - paddleSize / 2;
+            const touchX = touch.clientX - rect.left;
+            katrinPaddle.x = touchX - paddleSize / 2;
+            hugoPaddle.x = touchX - paddleSize / 2;
         });
 
-        // Bucle principal del juego
         function gameLoop() {
             draw();
             update();
@@ -208,47 +181,36 @@
         gameLoop();
     }
 
-    // Asignar el juego al botón
     document.getElementById("show-message").addEventListener("click", startGame);
 </script>
 
 <script>
-    console.log("Página cargada correctamente");
-
-    // Desplazamiento de las imágenes
     function startImageScroller() {
-        // Crear un contenedor para las imágenes
         const scrollerContainer = document.createElement("div");
         document.body.appendChild(scrollerContainer);
 
-        // Estilo del contenedor
         scrollerContainer.style.position = "fixed";
-        scrollerContainer.style.top = "20%";
-        scrollerContainer.style.left = "100%"; // Inicia fuera de la pantalla
+        scrollerContainer.style.top = "10%";
+        scrollerContainer.style.left = "100%";
         scrollerContainer.style.display = "flex";
         scrollerContainer.style.flexDirection = "column";
-        scrollerContainer.style.gap = "10px";
+        scrollerContainer.style.gap = "3vw";
 
-        // Cargar imágenes
         const imagePaths = ["images/foto3.jpg", "images/foto4.jpg", "images/foto5.jpg", "images/foto6.jpg", "images/foto7.jpg"];
         const images = imagePaths.map((src) => {
             const img = document.createElement("img");
             img.src = src;
-            img.style.width = "80px";
-            img.style.height = "80px"; // Cuadradas
+            img.style.width = "15vw";
+            img.style.height = "15vw";
             img.style.borderRadius = "10px";
-            img.style.boxShadow = "0 2px 5px rgba(0, 0, 0, 0.3)";
             scrollerContainer.appendChild(img);
             return img;
         });
 
-        // Animar el contenedor
         let position = window.innerWidth;
         function animate() {
-            position -= 2; // Velocidad de desplazamiento
-            if (position < -100) {
-                position = window.innerWidth; // Reinicia al salir de la pantalla
-            }
+            position -= 2;
+            if (position < -100) position = window.innerWidth;
             scrollerContainer.style.left = position + "px";
             requestAnimationFrame(animate);
         }
@@ -256,10 +218,8 @@
         animate();
     }
 
-    // Inicia el desplazamiento lateral al cargar la página
     window.onload = startImageScroller;
 </script>
-
 
 </body>
 </html>

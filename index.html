@@ -106,7 +106,7 @@
 <script>
     console.log("Inline script is loaded!");
 
-    const message = "Este es un mensaje personalizado para mi solcisio ❤️";
+    const message = "me vas a tener que convidar con los bombones (diabliyo rojo)";
 
     function showMessage() {
         alert(message);
@@ -114,6 +114,105 @@
 
     document.getElementById("show-message").addEventListener("click", showMessage);
 </script>
+
+<script>
+    console.log("Juego cargado correctamente");
+
+    function startGame() {
+        // Crear el canvas
+        const canvas = document.createElement("canvas");
+        document.body.appendChild(canvas);
+        canvas.width = 800;
+        canvas.height = 400;
+        const ctx = canvas.getContext("2d");
+
+        // Cargar imágenes de las paletas
+        const katrinImage = new Image();
+        const hugoImage = new Image();
+        katrinImage.src = "images/katrin.jpg";
+        hugoImage.src = "images/hugo.jpg";
+
+        // Variables del juego
+        const paddleWidth = 100;
+        const paddleHeight = 20;
+        const ballRadius = 10;
+
+        let katrinPaddle = { x: canvas.width / 2 - paddleWidth / 2, y: canvas.height - 30 };
+        let hugoPaddle = { x: canvas.width / 2 - paddleWidth / 2, y: 10 };
+        let ball = { x: canvas.width / 2, y: canvas.height / 2, dx: 2, dy: 3 };
+
+        // Dibuja el juego
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Dibujar paleta de Katrin
+            ctx.drawImage(katrinImage, katrinPaddle.x, katrinPaddle.y, paddleWidth, paddleHeight);
+
+            // Dibujar paleta de Hugo
+            ctx.drawImage(hugoImage, hugoPaddle.x, hugoPaddle.y, paddleWidth, paddleHeight);
+
+            // Dibujar pelota
+            ctx.beginPath();
+            ctx.arc(ball.x, ball.y, ballRadius, 0, Math.PI * 2);
+            ctx.fillStyle = "#c41d25";
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        // Movimiento de la pelota
+        function update() {
+            ball.x += ball.dx;
+            ball.y += ball.dy;
+
+            // Rebote en las paredes
+            if (ball.x + ballRadius > canvas.width || ball.x - ballRadius < 0) {
+                ball.dx = -ball.dx;
+            }
+
+            // Rebote en las paletas
+            if (
+                (ball.y + ballRadius > katrinPaddle.y &&
+                    ball.x > katrinPaddle.x &&
+                    ball.x < katrinPaddle.x + paddleWidth) ||
+                (ball.y - ballRadius < hugoPaddle.y + paddleHeight &&
+                    ball.x > hugoPaddle.x &&
+                    ball.x < hugoPaddle.x + paddleWidth)
+            ) {
+                ball.dy = -ball.dy;
+            }
+
+            // Reiniciar si la pelota se pierde
+            if (ball.y + ballRadius > canvas.height || ball.y - ballRadius < 0) {
+                ball.x = canvas.width / 2;
+                ball.y = canvas.height / 2;
+                ball.dx = 2;
+                ball.dy = 3;
+            }
+        }
+
+        // Control de las paletas
+        document.addEventListener("mousemove", (event) => {
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = event.clientX - rect.left;
+
+            katrinPaddle.x = mouseX - paddleWidth / 2;
+            hugoPaddle.x = mouseX - paddleWidth / 2;
+        });
+
+        // Bucle principal del juego
+        function gameLoop() {
+            draw();
+            update();
+            requestAnimationFrame(gameLoop);
+        }
+
+        gameLoop();
+    }
+
+    // Asignar el juego al botón
+    document.getElementById("show-message").addEventListener("click", startGame);
+</script>
+
 
 </body>
 </html>

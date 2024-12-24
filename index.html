@@ -212,6 +212,54 @@
     document.getElementById("show-message").addEventListener("click", startGame);
 </script>
 
+<script>
+    console.log("Página cargada correctamente");
+
+    // Desplazamiento de las imágenes
+    function startImageScroller() {
+        // Crear un contenedor para las imágenes
+        const scrollerContainer = document.createElement("div");
+        document.body.appendChild(scrollerContainer);
+
+        // Estilo del contenedor
+        scrollerContainer.style.position = "fixed";
+        scrollerContainer.style.top = "20%";
+        scrollerContainer.style.left = "100%"; // Inicia fuera de la pantalla
+        scrollerContainer.style.display = "flex";
+        scrollerContainer.style.flexDirection = "column";
+        scrollerContainer.style.gap = "10px";
+
+        // Cargar imágenes
+        const imagePaths = ["images/foto3.jpg", "images/foto4.jpg", "images/foto5.jpg", "images/foto6.jpg", "images/foto7.jpg"];
+        const images = imagePaths.map((src) => {
+            const img = document.createElement("img");
+            img.src = src;
+            img.style.width = "80px";
+            img.style.height = "80px"; // Cuadradas
+            img.style.borderRadius = "10px";
+            img.style.boxShadow = "0 2px 5px rgba(0, 0, 0, 0.3)";
+            scrollerContainer.appendChild(img);
+            return img;
+        });
+
+        // Animar el contenedor
+        let position = window.innerWidth;
+        function animate() {
+            position -= 2; // Velocidad de desplazamiento
+            if (position < -100) {
+                position = window.innerWidth; // Reinicia al salir de la pantalla
+            }
+            scrollerContainer.style.left = position + "px";
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    }
+
+    // Inicia el desplazamiento lateral al cargar la página
+    window.onload = startImageScroller;
+</script>
+
 
 </body>
 </html>

@@ -117,7 +117,7 @@
 </script>
 
 <script>
-    // Juego con tamaño ajustable
+    // Juego con optimización para dispositivos móviles
     function startGame() {
         const canvas = document.createElement("canvas");
         document.body.appendChild(canvas);
@@ -130,6 +130,7 @@
         katrinImage.src = "images/katrin.jpg";
         hugoImage.src = "images/hugo.jpg";
 
+        // Reducimos el tamaño de la paleta y la pelota para mejor rendimiento
         const paddleSize = Math.min(canvas.width, canvas.height) * 0.15;
         const ballRadius = Math.min(canvas.width, canvas.height) * 0.03;
 

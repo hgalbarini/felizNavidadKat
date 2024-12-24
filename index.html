@@ -133,12 +133,11 @@
         hugoImage.src = "images/hugo.jpg";
 
         // Variables del juego
-        const paddleWidth = 100;
-        const paddleHeight = 20;
+        const paddleSize = 80; // Tamaño más cuadrado
         const ballRadius = 10;
 
-        let katrinPaddle = { x: canvas.width / 2 - paddleWidth / 2, y: canvas.height - 30 };
-        let hugoPaddle = { x: canvas.width / 2 - paddleWidth / 2, y: 10 };
+        let katrinPaddle = { x: canvas.width / 2 - paddleSize / 2, y: canvas.height - 100 };
+        let hugoPaddle = { x: canvas.width / 2 - paddleSize / 2, y: 50 };
         let ball = { x: canvas.width / 2, y: canvas.height / 2, dx: 2, dy: 3 };
 
         // Dibuja el juego
@@ -146,10 +145,10 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             // Dibujar paleta de Katrin
-            ctx.drawImage(katrinImage, katrinPaddle.x, katrinPaddle.y, paddleWidth, paddleHeight);
+            ctx.drawImage(katrinImage, katrinPaddle.x, katrinPaddle.y, paddleSize, paddleSize);
 
             // Dibujar paleta de Hugo
-            ctx.drawImage(hugoImage, hugoPaddle.x, hugoPaddle.y, paddleWidth, paddleHeight);
+            ctx.drawImage(hugoImage, hugoPaddle.x, hugoPaddle.y, paddleSize, paddleSize);
 
             // Dibujar pelota
             ctx.beginPath();
@@ -173,10 +172,10 @@
             if (
                 (ball.y + ballRadius > katrinPaddle.y &&
                     ball.x > katrinPaddle.x &&
-                    ball.x < katrinPaddle.x + paddleWidth) ||
-                (ball.y - ballRadius < hugoPaddle.y + paddleHeight &&
+                    ball.x < katrinPaddle.x + paddleSize) ||
+                (ball.y - ballRadius < hugoPaddle.y + paddleSize &&
                     ball.x > hugoPaddle.x &&
-                    ball.x < hugoPaddle.x + paddleWidth)
+                    ball.x < hugoPaddle.x + paddleSize)
             ) {
                 ball.dy = -ball.dy;
             }
@@ -195,8 +194,8 @@
             const rect = canvas.getBoundingClientRect();
             const mouseX = event.clientX - rect.left;
 
-            katrinPaddle.x = mouseX - paddleWidth / 2;
-            hugoPaddle.x = mouseX - paddleWidth / 2;
+            katrinPaddle.x = mouseX - paddleSize / 2;
+            hugoPaddle.x = mouseX - paddleSize / 2;
         });
 
         // Bucle principal del juego

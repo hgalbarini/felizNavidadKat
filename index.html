@@ -15,10 +15,10 @@
             background-color: #c41d25;
             color: white;
             text-align: center;
-            padding: 5vw; /* Tamaño proporcional */
+            padding: 5vw;
         }
         header h1 {
-            font-size: 5vw; /* Escalable según ancho de pantalla */
+            font-size: 5vw;
         }
         .section {
             margin: 5vw auto;
@@ -41,7 +41,7 @@
         }
         .photos img {
             border-radius: 10px;
-            width: 20vw; /* Tamaño adaptable */
+            width: 20vw;
             height: auto;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
         }
@@ -90,7 +90,7 @@
 
 <div class="section">
     <h2>💫 Por muchas más juntos. (a rex un cliché)</h2>
-    <p>Algunas fotillas:</p>
+    
     <div class="photos">
         <img src="images/foto1.jpg" alt="Nuestro primer encuentro 1">
         <img src="images/foto2.jpg" alt="Nuestro primer encuentro 2">
@@ -117,12 +117,12 @@
 </script>
 
 <script>
-    // Adaptación del juego para móviles
+    // Juego con tamaño ajustable
     function startGame() {
         const canvas = document.createElement("canvas");
         document.body.appendChild(canvas);
-        canvas.width = window.innerWidth * 0.9;
-        canvas.height = window.innerHeight * 0.5;
+        canvas.width = window.innerWidth * 0.9;  // 90% del ancho de la pantalla
+        canvas.height = window.innerHeight * 0.5;  // 50% de la altura de la pantalla
         const ctx = canvas.getContext("2d");
 
         const katrinImage = new Image();

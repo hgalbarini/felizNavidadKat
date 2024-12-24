@@ -38,12 +38,27 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 3vw;
+            margin-top: 3vw;
         }
         .photos img {
             border-radius: 10px;
             width: 20vw;
             height: auto;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        .photo-frame {
+            border: 10px solid #ff3333;
+            border-radius: 20px;
+            padding: 2vw;
+            display: flex;
+            justify-content: center;
+            background: #fff6f6;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .photo-frame img {
+            width: 45vw;
+            height: auto;
+            border-radius: 15px;
         }
         .section p {
             font-size: 4vw;
@@ -90,10 +105,14 @@
 
 <div class="section">
     <h2>💫 Por muchas más juntos. (a rex un cliché)</h2>
-    
+    <p>Algunas fotillas:</p>
     <div class="photos">
-        <img src="images/foto1.jpg" alt="Nuestro primer encuentro 1">
-        <img src="images/foto2.jpg" alt="Nuestro primer encuentro 2">
+        <div class="photo-frame">
+            <img src="images/foto1.jpg" alt="Nuestro primer encuentro 1">
+        </div>
+        <div class="photo-frame">
+            <img src="images/foto2.jpg" alt="Nuestro primer encuentro 2">
+        </div>
     </div>
     <div class="button-container">
         <button id="show-message">no hagas click en este botoncillo a rex</button>
@@ -183,43 +202,6 @@
     }
 
     document.getElementById("show-message").addEventListener("click", startGame);
-</script>
-
-<script>
-    function startImageScroller() {
-        const scrollerContainer = document.createElement("div");
-        document.body.appendChild(scrollerContainer);
-
-        scrollerContainer.style.position = "fixed";
-        scrollerContainer.style.top = "10%";
-        scrollerContainer.style.left = "100%";
-        scrollerContainer.style.display = "flex";
-        scrollerContainer.style.flexDirection = "column";
-        scrollerContainer.style.gap = "3vw";
-
-        const imagePaths = ["images/foto3.jpg", "images/foto4.jpg", "images/foto5.jpg", "images/foto6.jpg", "images/foto7.jpg"];
-        const images = imagePaths.map((src) => {
-            const img = document.createElement("img");
-            img.src = src;
-            img.style.width = "15vw";
-            img.style.height = "15vw";
-            img.style.borderRadius = "10px";
-            scrollerContainer.appendChild(img);
-            return img;
-        });
-
-        let position = window.innerWidth;
-        function animate() {
-            position -= 2;
-            if (position < -100) position = window.innerWidth;
-            scrollerContainer.style.left = position + "px";
-            requestAnimationFrame(animate);
-        }
-
-        animate();
-    }
-
-    window.onload = startImageScroller;
 </script>
 
 </body>

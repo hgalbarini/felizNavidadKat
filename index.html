@@ -94,6 +94,36 @@
             margin: 0;
             font-size: 3.5vw;
         }
+
+        /* Estilos para las imágenes que se desplazan */
+        .image-scroller {
+            display: flex;
+            justify-content: space-between;
+            overflow: hidden;
+            width: 100%;
+            margin-top: 5vw;
+        }
+        .image-scroller img {
+            width: 15vw;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Estilo del contenedor que hará que las imágenes se desplacen */
+        .image-scroller-container {
+            display: flex;
+            animation: slide 30s linear infinite;
+        }
+
+        @keyframes slide {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(-100%);
+            }
+        }
     </style>
 </head>
 <body>
@@ -116,6 +146,17 @@
     </div>
     <div class="button-container">
         <button id="show-message">no hagas click en este botoncillo a rex</button>
+    </div>
+</div>
+
+<!-- Sección para las imágenes deslizantes -->
+<div class="image-scroller">
+    <div class="image-scroller-container">
+        <img src="images/foto3.jpg" alt="Foto 3">
+        <img src="images/foto4.jpg" alt="Foto 4">
+        <img src="images/foto5.jpg" alt="Foto 5">
+        <img src="images/foto6.jpg" alt="Foto 6">
+        <img src="images/foto7.jpg" alt="Foto 7">
     </div>
 </div>
 
